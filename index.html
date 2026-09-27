@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GymFlow - Membership & Billing</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <span>G</span>
+            </div>
+
+            <div>
+                <h1>GymFlow</h1>
+                <p>Membership System</p>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="sidebar-label">MENU UTAMA</p>
+
+            <button class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="member">
+                <span class="nav-icon">♙</span>
+                <span>Data Member</span>
+            </button>
+
+            <button class="nav-item" data-page="membership">
+                <span class="nav-icon">▣</span>
+                <span>Membership</span>
+            </button>
+
+            <button class="nav-item" data-page="pembayaran">
+                <span class="nav-icon">Rp</span>
+                <span>Pembayaran</span>
+            </button>
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-card">
+                <div class="sidebar-card-icon">✓</div>
+
+                <div>
+                    <strong>GymFlow Active</strong>
+                    <span>System Online</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <span>Accounting System</span>
+                <span>v1.0</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+                <p class="breadcrumb">GymFlow / <span id="breadcrumbText">Dashboard</span></p>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="today-box">
+                    <span class="today-icon">◷</span>
+
+                    <div>
+                        <small>Hari ini</small>
+                        <strong id="todayDate">-</strong>
+                    </div>
+                </div>
+
+                <div class="profile">
+                    <div class="profile-avatar">A</div>
+
+                    <div>
+                        <strong>Admin Gym</strong>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE: DASHBOARD ================= -->
+
+        <section id="page-dashboard" class="page active-page">
+
+            <div class="welcome-section">
+
+                <div>
+                    <p class="eyebrow">OVERVIEW</p>
+                    <h3>Selamat datang di GymFlow 👋</h3>
+                    <p class="welcome-text">
+                        Kelola member, membership, dan pembayaran gym dalam satu sistem.
+                    </p>
+                </div>
+
+                <button class="primary-button" onclick="showPage('pembayaran')">
+                    <span>+</span>
+                    Tambah Pembayaran
+                </button>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+                        <div class="stat-icon purple">♙</div>
+                        <span class="stat-label">TOTAL MEMBER</span>
+                    </div>
+
+                    <div class="stat-number" id="totalMember">
+                        0
+                    </div>
+
+                    <div class="stat-description">
+                        Member terdaftar
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+                        <div class="stat-icon green">✓</div>
+                        <span class="stat-label">MEMBERSHIP AKTIF</span>
+                    </div>
+
+                    <div class="stat-number" id="activeMembership">
+                        0
+                    </div>
+
+                    <div class="stat-description">
+                        Paket sedang aktif
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+                        <div class="stat-icon orange">▤</div>
+                        <span class="stat-label">TOTAL TRANSAKSI</span>
+                    </div>
+
+                    <div class="stat-number" id="totalTransaction">
+                        0
+                    </div>
+
+                    <div class="stat-description">
+                        Seluruh pembayaran
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+                        <div class="stat-icon blue">Rp</div>
+                        <span class="stat-label">TOTAL PENDAPATAN</span>
+                    </div>
+
+                    <div class="stat-number revenue" id="totalRevenue">
+                        Rp 0
+                    </div>
+
+                    <div class="stat-description">
+                        Pembayaran lunas
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD CONTENT -->
+
+            <div class="dashboard-grid">
+
+                <!-- RECENT PAYMENT -->
+
+                <div class="content-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>Pembayaran Terbaru</h3>
+                            <p>Transaksi pembayaran terakhir</p>
+                        </div>
+
+                        <button class="text-button" onclick="showPage('pembayaran')">
+                            Lihat Semua →
+                        </button>
+
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Member</th>
+                                    <th>Periode</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentPaymentTable">
+
+                                <tr>
+                                    <td colspan="4" class="empty-state">
+                                        Memuat data...
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVE MEMBERSHIP -->
+
+                <div class="content-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>Membership Aktif</h3>
+                            <p>Member dengan paket aktif</p>
+                        </div>
+
+                        <button class="text-button" onclick="showPage('membership')">
+                            Lihat Semua →
+                        </button>
+
+                    </div>
+
+                    <div id="activeMembershipList" class="membership-list">
+
+                        <div class="loading-box">
+                            Memuat data...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAGE: MEMBER ================= -->
+
+        <section id="page-member" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <p class="eyebrow">MASTER DATA</p>
+                    <h3>Data Member</h3>
+                    <p>Kelola seluruh data member gym.</p>
+                </div>
+
+                <button class="primary-button" onclick="openMemberModal()">
+                    <span>+</span>
+                    Tambah Member
+                </button>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="filter-bar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="memberSearch"
+                            placeholder="Cari nama, email, atau nomor telepon..."
+                            oninput="renderMemberTable()"
+                        >
+
+                    </div>
+
+
+                    <select id="memberStatusFilter" onchange="renderMemberTable()">
+
+                        <option value="">Semua Status</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Tidak Aktif">Tidak Aktif</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Member</th>
+                                <th>Jenis Kelamin</th>
+                                <th>No. Telepon</th>
+                                <th>Email</th>
+                                <th>Tanggal Daftar</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="memberTableBody">
+
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    Memuat data...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAGE: MEMBERSHIP ================= -->
+
+        <section id="page-membership" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <p class="eyebrow">MASTER DATA</p>
+                    <h3>Data Membership</h3>
+                    <p>Kelola paket membership setiap member.</p>
+                </div>
+
+                <button class="primary-button" onclick="openMembershipModal()">
+                    <span>+</span>
+                    Tambah Membership
+                </button>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="filter-bar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="membershipSearch"
+                            placeholder="Cari member atau paket..."
+                            oninput="renderMembershipTable()"
+                        >
+
+                    </div>
+
+
+                    <select id="membershipStatusFilter" onchange="renderMembershipTable()">
+
+                        <option value="">Semua Status</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Berakhir">Berakhir</option>
+                        <option value="Dibatalkan">Dibatalkan</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Paket</th>
+                                <th>Mulai</th>
+                                <th>Berakhir</th>
+                                <th>Harga</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="membershipTableBody">
+
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    Memuat data...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAGE: PEMBAYARAN ================= -->
+
+        <section id="page-pembayaran" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <p class="eyebrow">TRANSAKSI</p>
+                    <h3>Pembayaran</h3>
+                    <p>Kelola transaksi billing dan pendapatan gym.</p>
+                </div>
+
+                <button class="primary-button" onclick="openPaymentModal()">
+                    <span>+</span>
+                    Tambah Pembayaran
+                </button>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="filter-bar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="paymentSearch"
+                            placeholder="Cari member atau periode..."
+                            oninput="renderPaymentTable()"
+                        >
+
+                    </div>
+
+
+                    <select id="paymentStatusFilter" onchange="renderPaymentTable()">
+
+                        <option value="">Semua Status</option>
+                        <option value="Lunas">Lunas</option>
+                        <option value="Belum Lunas">Belum Lunas</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Paket</th>
+                                <th>Tanggal</th>
+                                <th>Periode</th>
+                                <th>Jumlah</th>
+                                <th>Metode</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="paymentTableBody">
+
+                            <tr>
+                                <td colspan="9" class="empty-state">
+                                    Memuat data...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL MEMBER
+===================================================== -->
+
+<div class="modal-overlay" id="memberModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <p class="eyebrow">MASTER DATA</p>
+                <h3 id="memberModalTitle">Tambah Member</h3>
+            </div>
+
+            <button class="close-button" onclick="closeMemberModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="memberForm">
+
+            <input type="hidden" id="memberId">
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>Nama Member *</label>
+
+                    <input
+                        type="text"
+                        id="memberNama"
+                        placeholder="Masukkan nama lengkap"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Jenis Kelamin *</label>
+
+                    <select id="memberGender" required>
+
+                        <option value="">Pilih jenis kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>No. Telepon</label>
+
+                    <input
+                        type="text"
+                        id="memberPhone"
+                        placeholder="08xxxxxxxxxx"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="memberEmail"
+                        placeholder="nama@email.com"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Tanggal Daftar *</label>
+
+                    <input
+                        type="date"
+                        id="memberDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>Alamat</label>
+
+                    <textarea
+                        id="memberAddress"
+                        rows="3"
+                        placeholder="Masukkan alamat"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Status *</label>
+
+                    <select id="memberStatus" required>
+
+                        <option value="Aktif">Aktif</option>
+                        <option value="Tidak Aktif">Tidak Aktif</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="closeMemberModal()"
+                >
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Simpan Member
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL MEMBERSHIP
+===================================================== -->
+
+<div class="modal-overlay" id="membershipModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <p class="eyebrow">MASTER DATA</p>
+                <h3 id="membershipModalTitle">Tambah Membership</h3>
+            </div>
+
+            <button class="close-button" onclick="closeMembershipModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="membershipForm">
+
+            <input type="hidden" id="membershipId">
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>Member *</label>
+
+                    <select id="membershipMember" required>
+                        <option value="">Pilih member</option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Jenis Paket *</label>
+
+                    <select
+                        id="membershipPackage"
+                        required
+                        onchange="calculateEndDate()"
+                    >
+
+                        <option value="">Pilih paket</option>
+                        <option value="Harian">Harian</option>
+                        <option value="Bulanan">Bulanan</option>
+                        <option value="3 Bulan">3 Bulan</option>
+                        <option value="6 Bulan">6 Bulan</option>
+                        <option value="Tahunan">Tahunan</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Harga *</label>
+
+                    <div class="input-prefix">
+                        <span>Rp</span>
+
+                        <input
+                            type="number"
+                            id="membershipPrice"
+                            min="0"
+                            placeholder="0"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Tanggal Mulai *</label>
+
+                    <input
+                        type="date"
+                        id="membershipStart"
+                        onchange="calculateEndDate()"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Tanggal Berakhir *</label>
+
+                    <input
+                        type="date"
+                        id="membershipEnd"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Status *</label>
+
+                    <select id="membershipStatus" required>
+
+                        <option value="Aktif">Aktif</option>
+                        <option value="Berakhir">Berakhir</option>
+                        <option value="Dibatalkan">Dibatalkan</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>ⓘ</span>
+
+                <p>
+                    Tanggal berakhir dapat dihitung otomatis berdasarkan jenis paket.
+                </p>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="closeMembershipModal()"
+                >
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Simpan Membership
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL PEMBAYARAN
+===================================================== -->
+
+<div class="modal-overlay" id="paymentModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <p class="eyebrow">TRANSAKSI</p>
+                <h3 id="paymentModalTitle">Tambah Pembayaran</h3>
+            </div>
+
+            <button class="close-button" onclick="closePaymentModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="paymentForm">
+
+            <input type="hidden" id="paymentId">
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>Membership *</label>
+
+                    <select id="paymentMembership" required>
+                        <option value="">Pilih membership</option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Tanggal Pembayaran *</label>
+
+                    <input
+                        type="date"
+                        id="paymentDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Periode Bayar *</label>
+
+                    <input
+                        type="text"
+                        id="paymentPeriod"
+                        placeholder="Contoh: September 2026"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Jumlah Bayar *</label>
+
+                    <div class="input-prefix">
+
+                        <span>Rp</span>
+
+                        <input
+                            type="number"
+                            id="paymentAmount"
+                            min="0"
+                            placeholder="0"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Metode Pembayaran *</label>
+
+                    <select id="paymentMethod" required>
+
+                        <option value="Tunai">Tunai</option>
+                        <option value="Transfer">Transfer</option>
+                        <option value="QRIS">QRIS</option>
+                        <option value="Debit">Debit</option>
+                        <option value="E-Wallet">E-Wallet</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Status Pembayaran *</label>
+
+                    <select id="paymentStatus" required>
+
+                        <option value="Lunas">Lunas</option>
+                        <option value="Belum Lunas">Belum Lunas</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>Keterangan</label>
+
+                    <textarea
+                        id="paymentNote"
+                        rows="3"
+                        placeholder="Keterangan pembayaran..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="closePaymentModal()"
+                >
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Simpan Pembayaran
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast" class="toast">
+
+    <div class="toast-icon">✓</div>
+
+    <div>
+        <strong id="toastTitle">Berhasil</strong>
+        <span id="toastMessage">Data berhasil disimpan.</span>
+    </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
